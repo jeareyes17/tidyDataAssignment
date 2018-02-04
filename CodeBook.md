@@ -98,8 +98,10 @@ To obtain a tidy subset, the following actions were performed:
 81 FBodyBodyGyroJerkMagMeanFreq  - The mean magnitude of the body from gyroscope and jerk signals using Fast Fourier Transformation (FFT)   
 82 AngleTBodyAccMeanGravity - The mean gravity of the angle of the body acceleration      
 83 AngleTBodyAccJerkMeangravityMean - The mean gravity of the angle of the body acceleration from jerk signals
+
 84 AngleTBodyGyroMeanGravityMean  - The mean gravity of the angle of the body acceleration from gyroscope  
 85 AngleTBodyGyroJerkMeanGravityMean - The mean gravity of the angle of the body acceleration from gyroscope and jerk signals
+
 86 AngleXGravityMean - The mean gravity of the angle on x-axis               
 87 AngleYGravityMean - The mean gravity of the angle on y-axis                
 88 AngleZGravityMean - The mean gravity of the angle on z-axis 
