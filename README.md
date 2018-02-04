@@ -13,6 +13,6 @@ The dataset includes the following files:
                     calculation of the mean and standard for each features per subject and activity. The summary is displayed as output on
                     the tidydata.txt generated from running the run_analysis.R
 
-- 'CodeBook.md':  List of all variables of the dataset with relevant information such as transformations performed.
+- 'CodeBook.md':  List of all variables of the dataset with relevant information such as transformations performed. The variable names are generated from the formatted column names from the run_analysis.R.
 - 'tidydata.txt': Contains the descriptive statistics specifically the mean and standard deviation per subject and activity. Each row                       contains the subject identifier, activity performed and the measures for each of the feature. This data is a cleaned      subset taken from the original Human Activity Recognition Using Smartphones Dataset as an output from the run_analysis.R     
 
