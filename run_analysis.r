@@ -1,4 +1,3 @@
-
 url<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
 #create a destination file
@@ -23,7 +22,7 @@ y_train<-read.table("./train/y_train.txt", header = FALSE, sep = "",stringsAsFac
 
 subject_test<-read.table("./test/subject_test.txt",sep="",header=FALSE, stringsAsFactors=FALSE)
 subject_train<-read.table("./train/subject_train.txt",sep="",header=FALSE, stringsAsFactors=FALSE)
-
+install.packages("dplyr")
 library(dplyr)
 
 #rename headers 
@@ -43,23 +42,29 @@ train<-cbind(x_train,y_train,subject_train)
 mergedTestTrainData<-rbind(test,train)
 
 #filter out duplicated column names
-unduplicatedData <- mergedTestTrainData[ , !duplicated(colnames(mergedTestTrainData))]
+valid_column_names <- make.names(names=names(mergedTestTrainData), unique=TRUE, allow_ = TRUE)
+names(mergedTestTrainData) <- valid_column_names
 #use dplyr to select columns containing mean and std
-meanStdevData<-select(unduplicatedData,matches('mean|std'))
+meanStdevData<-select(mergedTestTrainData,matches('mean|std'),activity,subject)
 
+#assign column names to activity table
 activityHeaders<-c("activity","activityDesc")
 names(activity_labels)<-activityHeaders
 
-#make valid column names to mutate
-valid_column_names <- make.names(names=names(mergedTestTrainData), unique=TRUE, allow_ = TRUE)
-##replace with readable headers
-valid_column_names<-gsub('[\\.]{2,3}', '\\.', valid_column_names, ignore.case = FALSE)
-valid_column_names<-gsub('\\.$', '', valid_column_names, ignore.case = FALSE)
+#assign activity with activity description
+meanStdevData<-mutate(meanStdevData,activity = as.character(factor(activity, levels=1:6,labels=activity_labels$activityDesc)))
+#make activity data readable
+meanStdevData$activity<-gsub("\\_", " ", meanStdevData$activity)
+install.packages("lettercase")
+library(lettercase)
+meanStdevData$activity<-str_lower_case(meanStdevData$activity)
+meanStdevData$activity<-str_cap_words(meanStdevData$activity)
 
-names(mergedTestTrainData) <- valid_column_names
-mergedTestTrainData<-mutate(mergedTestTrainData,activity = as.character(factor(activity, levels=1:6,labels=activity_labels$activityDesc)))
+#make column headers readable
+names(meanStdevData)<-gsub("(^|\\p{P})\\s*(.)", "\\1\\U\\2", names(meanStdevData), perl=T)
+names(meanStdevData)<-gsub('[\\.]{1,3}', '', names(meanStdevData), ignore.case = FALSE)
 
 #question 5: Get the mean for each subject and activity
-tidydata<-mergedTestTrainData%>%group_by(subject,activity)%>%summarise_all(mean)
+tidydata<-meanStdevData%>%group_by(Subject,Activity)%>%summarise_all(mean)
 write.table(tidydata, file = "tidydata.txt", sep = " ", row.names=FALSE, quote = FALSE)
 
