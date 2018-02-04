@@ -1,6 +1,6 @@
- Human Activities and Postural Transitions Mean and Standard Deviation CodeBook
+ # Human Activities and Postural Transitions Mean and Standard Deviation CodeBook
  
- Overview
+ ## Overview
  
 The tidydata.text is a cleaned subset of the UCI Human Activity Recognition Using smartphones Dataset. The data is taken from  http://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions. The source data set contains subjects, activities and the collected data for each activity and posture from test and train data.The activities and features were associated to the corresponding entry in the train and test data. Train and test data were merged to a single data set. The descriptive statistics, specifically mean and standard deviation were extracted for each Subject and Activity. 
  
